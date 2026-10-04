@@ -1,14 +1,27 @@
 import type { APIRoute } from "astro";
 
-const robotsTxt = `
-User-agent: *
-Disallow: /_astro/
+export const GET: APIRoute = ({ site }) => {
+	const siteUrl = site ?? new URL("https://aigene.studio/");
+	const sitemapUrl = new URL("sitemap.xml", siteUrl).href;
+	const sitemapIndexUrl = new URL("sitemap-index.xml", siteUrl).href;
+	const llmsUrl = new URL("llms.txt", siteUrl).href;
+	const llmsFullUrl = new URL("llms-full.txt", siteUrl).href;
 
-Sitemap: ${new URL("sitemap.xml", import.meta.env.SITE).href}
-Sitemap: ${new URL("sitemap-index.xml", import.meta.env.SITE).href}
+	const robotsTxt = `
+User-agent: *
+Allow: /
+Disallow: /_astro/
+Disallow: /api/
+
+# Sitemap
+Sitemap: ${sitemapUrl}
+Sitemap: ${sitemapIndexUrl}
+
+# LLMs & AI Agents Context
+# ${llmsUrl}
+# ${llmsFullUrl}
 `.trim();
 
-export const GET: APIRoute = () => {
 	return new Response(robotsTxt, {
 		headers: {
 			"Content-Type": "text/plain; charset=utf-8",

@@ -113,6 +113,21 @@ const hasCjkFont =
 	customFontsEnabled && Boolean(resolvedFontOptions.roles.cjk.family);
 const hasMonoFont =
 	customFontsEnabled && Boolean(resolvedFontOptions.roles.mono.family);
+
+const websiteJsonLd = !setOGTypeArticle
+	? {
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			name: siteConfig.title,
+			alternateName: siteConfig.subtitle,
+			url: canonicalUrl.origin,
+			description: description || siteConfig.subtitle || siteConfig.title,
+			author: {
+				"@type": "Person",
+				name: profileConfig.name,
+			},
+		}
+	: null;
 ---
 
 <!DOCTYPE html>
@@ -125,6 +140,9 @@ const hasMonoFont =
 		<meta charset="UTF-8" />
 		<meta name="description" content={description || pageTitle}>
 		<meta name="author" content={profileConfig.name}>
+		<link rel="canonical" href={canonicalUrl.href} />
+		<link rel="alternate" type="application/rss+xml" title={siteConfig.title} href={new URL("rss.xml", canonicalUrl).href} />
+		<link rel="alternate" type="application/atom+xml" title={siteConfig.title} href={new URL("atom.xml", canonicalUrl).href} />
 
 		<meta property="og:site_name" content={siteConfig.title}>
 		<meta property="og:url" content={canonicalUrl}>
@@ -146,6 +164,9 @@ const hasMonoFont =
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="baidu-site-verification" content="codeva-It0qyxpsjn" />
+		{websiteJsonLd && (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)}></script>
+		)}
 		{fontRoleStyle && <style is:inline set:html={fontRoleStyle}></style>}
 		{textureEnabled && <style is:inline set:html={textureStyles}></style>}
 		{hasBodyFont && <Font cssVariable={resolvedFontOptions.roles.body.cssVariable as never} preload={resolvedFontOptions.roles.body.preload} />}

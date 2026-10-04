@@ -43,6 +43,7 @@ import {
 	getPostUrl,
 	getPostUrlBySlug,
 	removeFileExtension,
+	toAbsoluteUrl,
 } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import katexStylesheet from "katex/dist/katex.css?url";
@@ -195,16 +196,29 @@ const ogImage = entry.data.image
 
 const canonicalPostUrl = getPostUrl(entry);
 
+const absolutePostUrl = toAbsoluteUrl(canonicalPostUrl, Astro.site || Astro.url);
+const absolutePostImage = ogImage ? toAbsoluteUrl(ogImage, Astro.site || Astro.url) : undefined;
+
 const jsonLd = {
 	"@context": "https://schema.org",
 	"@type": "BlogPosting",
 	headline: entry.data.title,
 	description: effectiveDescription,
 	keywords: entry.data.tags,
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": absolutePostUrl,
+	},
+	...(absolutePostImage ? { image: absolutePostImage } : {}),
 	author: {
 		"@type": "Person",
 		name: profileConfig.name,
-		url: Astro.site,
+		url: Astro.site ? Astro.site.href : undefined,
+	},
+	publisher: {
+		"@type": "Organization",
+		name: siteConfig.title,
+		url: Astro.site ? Astro.site.href : undefined,
 	},
 	datePublished: entry.data.publishedAt
 		? publishedInstant.toISOString()
