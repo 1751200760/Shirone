@@ -12,7 +12,7 @@ import { withUserConfig } from "../utils/config-overlay.ts";
 export const siteConfig: SiteConfig = withUserConfig("site", {
 	site: "https://aigene.studio/",
 	base: "/",
-	title: "Blueberry",
+	title: "蓝莓小屋",
 	subtitle: "一个 Material 3 风格的动漫博客",
 	// 电脑端顶栏标题与导航内容区域："left" 左对齐，"center" 居中。
 	topAppBar: {
@@ -70,7 +70,7 @@ export const siteConfig: SiteConfig = withUserConfig("site", {
 		homeText: {
 			// 仅在首页 Banner 中显示，标题与副标题会上下居中排列。
 			enable: true,
-			title: "Blueberry",
+			title: "蓝莓小屋",
 			subtitle: [
 				"向着光前行，不负每一次相遇与热爱。",
 				"代码与生活，皆是值得奔赴的诗篇。",
