@@ -1,10 +1,8 @@
 /**
- * 友情链接数据配置（结构与 Mizuki 同款，便于互相迁移）。
- * 用于管理友情链接页面的数据：src/pages/friends.astro → organisms/FriendSection。
- *
- * 添加友链：在 friendsData 中追加一项即可，页面 / 筛选标签自动生成。
- * tags 会聚合为页面顶部的筛选 chip（OR 命中：选中多个标签时命中任一即显示）。
+ * 友情链接数据配置（结构与 Mizuki 同款，并扩展二态支持与截图字段）
  */
+export type FriendState = "normal" | "owner" | "featured";
+
 export interface FriendItem {
 	id: number;
 	title: string;
@@ -12,12 +10,34 @@ export interface FriendItem {
 	desc: string;
 	siteurl: string;
 	tags: string[];
+	/** 特殊状态：owner 站长紫 | featured 推荐金 */
+	state?: FriendState;
+	/** 站点悬浮截图预览地址（可选） */
+	siteshot?: string;
 }
 
 // 友情链接数据
 export const friendsData: FriendItem[] = [
 	{
 		id: 1,
+		title: "蓝莓小屋 (本站)",
+		imgurl: "/logo/icon.webp",
+		desc: "向着光前行，不负每一次相遇与热爱。",
+		siteurl: "https://aigene.studio/",
+		tags: ["站长", "博客"],
+		state: "owner",
+	},
+	{
+		id: 2,
+		title: "Shirone (白音)",
+		imgurl: "https://avatars.githubusercontent.com/u/1751200760?v=4",
+		desc: "Material 3 Expressive 风格的二次元 Astro 博客主题",
+		siteurl: "https://github.com/1751200760/Shirone",
+		tags: ["推荐", "Theme", "Astro"],
+		state: "featured",
+	},
+	{
+		id: 3,
 		title: "Mizuki",
 		imgurl: "https://avatars.githubusercontent.com/u/225602409?v=4&s=640",
 		desc: "Another Fuwari-based blog theme with docs",
@@ -25,7 +45,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Blog", "Theme"],
 	},
 	{
-		id: 2,
+		id: 4,
 		title: "Astro",
 		imgurl: "https://avatars.githubusercontent.com/u/44914786?v=4&s=640",
 		desc: "The web framework for content-driven websites",
@@ -33,7 +53,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Framework"],
 	},
 	{
-		id: 3,
+		id: 5,
 		title: "Material 3",
 		imgurl: "https://avatars.githubusercontent.com/u/19478152?v=4&s=640",
 		desc: "Material Design 3 — the next generation of Material Design",
@@ -42,12 +62,10 @@ export const friendsData: FriendItem[] = [
 	},
 ];
 
-// 获取所有友情链接数据（稳定顺序，测试可复现）
 export function getFriendsList(): FriendItem[] {
 	return friendsData;
 }
 
-// 获取随机排序的友情链接数据（避免固定排序，按需使用）
 export function getShuffledFriendsList(): FriendItem[] {
 	const shuffled = [...friendsData];
 	for (let i = shuffled.length - 1; i > 0; i--) {
