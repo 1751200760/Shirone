@@ -74,3 +74,5 @@ artifacts/lighthouse/*
 artifacts/shirone-ai-*
 
 .pnpm-store/
+
+video/
