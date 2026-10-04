@@ -6,82 +6,27 @@ import type { TimelineItem } from "@/types/timelineConfig";
 
 export const timelineData: TimelineItem[] = [
 	{
-		title: "Shirone Theme M3E Major Architecture Upgrade",
-		date: "2026.08",
+		title: "Blueberry 个人小站正式建立",
+		date: "2026-10-04",
 		category: "milestone",
-		subtitle: "Open Source Project",
+		subtitle: "全新起点",
 		description:
-			"Refactored the entire blog theme into a Material 3 Expressive atomic component system with token-driven styling, complete keyboard navigation, and full accessibility compliance.",
+			"Blueberry 的个人博客今天正式搭建完成并上线！基于 Shirone 主题与现代 Web 前端技术栈构建，开启记录技术与生活的新篇章。",
 		highlights: [
-			"Implemented dynamic HCT palette calculation and state layer tokens",
-			"Added multi-page capabilities: Timeline, Skills, Projects, and Protected Albums",
-			"Zero-error strict type-checking and automated visual regression locks",
+			"完成博客本地环境配置与定制化开发",
+			"接入个性化二次元设计、M3E 主题色与番剧清单",
+			"发布第一篇博客文章《启程：博客建站简介与致谢》",
 		],
-		tags: ["Astro", "Svelte 5", "M3E", "Tailwind 4"],
+		tags: ["建站", "Blueberry", "Shirone", "Astro"],
 		links: [
 			{
-				label: "GitHub Repository",
-				url: "https://github.com/LyraVoid/Shirone",
+				label: "GitHub 仓库",
+				url: "https://github.com/1751200760/Shirone",
 				icon: "fa6-brands:github",
 			},
 		],
 		icon: "material-symbols:rocket-launch-rounded",
 		featured: true,
-	},
-	{
-		title: "Senior Frontend Engineer",
-		date: "2025.03 – Present",
-		category: "career",
-		subtitle: "Technology Lab",
-		location: "Tokyo, Japan",
-		description:
-			"Leading frontend architecture, web performance optimization, and interactive design system development for modern web platforms.",
-		highlights: [
-			"Spearheaded design system unification across web products",
-			"Reduced core bundle load times by 40% using modern SSR and asset pipelines",
-		],
-		tags: ["TypeScript", "Architecture", "Performance", "Design System"],
-		icon: "material-symbols:work-rounded",
-		featured: true,
-	},
-	{
-		title: "Full-Stack Web Application Launch",
-		date: "2024.11",
-		category: "project",
-		subtitle: "Independent Creation",
-		description:
-			"Designed and built an end-to-end creative workflow application with real-time collaboration and cloud synchronization.",
-		highlights: [
-			"Designed intuitive fluid canvas interface with low-latency interaction",
-			"Built serverless backend APIs with edge caching and relational persistence",
-		],
-		tags: ["Svelte", "Node.js", "PostgreSQL", "Cloudflare"],
-		icon: "material-symbols:deployed-code-outline-rounded",
-	},
-	{
-		title: "Computer Science & Engineering Degree",
-		date: "2020.09 – 2024.06",
-		category: "education",
-		subtitle: "University of Technology",
-		location: "Hangzhou, China",
-		description:
-			"Focused on computer systems, software engineering, human-computer interaction, and distributed architectures.",
-		highlights: [
-			"Graduated with honors and outstanding graduate thesis award",
-			"Led university open source student community and hackathons",
-		],
-		tags: ["Computer Science", "Algorithms", "Software Engineering"],
-		icon: "material-symbols:school-rounded",
-	},
-	{
-		title: "Started Personal Blog & Tech Notes",
-		date: "2022.04",
-		category: "life",
-		subtitle: "First Step into Tech Writing",
-		description:
-			"Published my first article online and began documenting frontend exploration, creative coding, and personal reflections.",
-		tags: ["Blogging", "Writing", "Open Web"],
-		icon: "material-symbols:edit-note-rounded",
 	},
 ];
 

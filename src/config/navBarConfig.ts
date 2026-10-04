@@ -28,8 +28,9 @@ import { pruneUnavailableNavLinks } from "../utils/nav-utils.ts";
  *   同时驱动顶栏下拉菜单与全端导航抽屉。
  * 新增入口：先在 LinkPresets 登记预设，再在 navBarConfig.links 按序引用。
  *
- * 内容仓可用 `config/nav-bar.yaml` 整体替换 `links`，写法见 `NavBarLinkOverride`。
- * 无论哪种来源，指向已关闭功能页面的入口都会在 `navBarConfig` 处被裁掉。
+ * 内容仓可用 config/nav-bar.yaml 整体替换 links，写法见 NavBarLinkOverride。
+ * 无论哪种来源，指向已关闭功能页面的入口都会在 
+avBarConfig 处被裁掉。
  */
 export const LinkPresets: Record<string, NavBarLink> = {
 	Home: {
@@ -130,7 +131,7 @@ export const LinkPresets: Record<string, NavBarLink> = {
 	},
 	GitHub: {
 		name: "GitHub",
-		url: "https://github.com/LyraVoid/Shirone",
+		url: "https://github.com/1751200760/Shirone",
 		icon: "fa6-brands:github",
 		external: true,
 		pageKey: "github",
@@ -151,7 +152,6 @@ const defaultNavBarConfig: NavBarConfig = {
 			icon: "material-symbols:apps-rounded",
 			children: [
 				LinkPresets.Timeline,
-				LinkPresets.Projects,
 				LinkPresets.Devices,
 				LinkPresets.Games,
 				LinkPresets.Skills,
@@ -169,7 +169,7 @@ const defaultNavBarConfig: NavBarConfig = {
 import { resolveI18nText } from "../utils/i18n-utils.ts";
 
 function fail(message: string): never {
-	throw new Error(`[config] nav-bar：${message}`);
+	throw new Error("[config] nav-bar: " + message);
 }
 
 function resolveName(name: string): string {
@@ -177,9 +177,9 @@ function resolveName(name: string): string {
 }
 
 /**
- * 已关闭功能对应的站内路由（去尾斜杠），供 `pruneUnavailableNavLinks()` 裁剪导航入口。
+ * 已关闭功能对应的站内路由（去尾斜杠），供 pruneUnavailableNavLinks() 裁剪导航入口。
  *
- * 功能关闭时对应页面会 `Astro.redirect("/404/")`，因此这些路由不得再出现在导航里。
+ * 功能关闭时对应页面会 Astro.redirect("/404/")，因此这些路由不得再出现在导航里。
  * 关闭判定只看配置，与导航结构无关，因此默认结构与内容仓声明式条目共用同一张表。
  */
 const unavailableFeatureRoutes: ReadonlySet<string> = new Set([
@@ -198,9 +198,9 @@ const unavailableFeatureRoutes: ReadonlySet<string> = new Set([
 ]);
 
 /**
- * 把内容仓的声明式导航条目还原成 `NavBarLink`。
+ * 把内容仓的声明式导航条目还原成 NavBarLink。
  *
- * 预设名与 i18n 词条只有在这里才能校验（`LinkPresets` 与 `I18nKey` 都住在代码仓，
+ * 预设名与 i18n 词条只有在这里才能校验（LinkPresets 与 I18nKey 都住在代码仓，
  * 生成期的 Node 脚本受路径别名所限读不到），因此错误在构建加载配置时抛出。
  */
 export function resolveNavBarLinks(
@@ -213,7 +213,7 @@ export function resolveNavBarLinks(
 			base = presets[entry.preset] ?? null;
 			if (!base) {
 				fail(
-					`未知的预设 "${entry.preset}"。可用预设：${Object.keys(presets).join("、")}。`,
+					"未知的预设。",
 				);
 			}
 		}
@@ -244,7 +244,7 @@ const userNavBar = getUserConfig("navBar") as NavBarConfigOverride | undefined;
 /**
  * 导航栏最终结构。
  *
- * 默认结构与内容仓 `config/nav-bar.yaml`（声明式列表，整体替换默认导航，不走任何
+ * 默认结构与内容仓 config/nav-bar.yaml（声明式列表，整体替换默认导航，不走任何
  * enable 分支）在这里汇合后统一裁剪：功能关掉时入口一并消失，两种模式下行为一致，
  * 不会留下点进去 404 的死链。
  */
