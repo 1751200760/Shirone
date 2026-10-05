@@ -42,7 +42,8 @@ export const friendsData: FriendItem[] = [
 		imgurl: "https://q1.qlogo.cn/g?b=qq&nk=20447289&s=640",
 		desc: "躬身入局，心为主理，行有尺度，自持本心。",
 		siteurl: "https://blog.fqzlr.top/",
-		tags: ["博客", "折腾", "友链"],
+		tags: ["推荐", "博客", "折腾"],
+		state: "featured",
 	},
 	{
 		id: 4,
