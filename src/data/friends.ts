@@ -38,6 +38,14 @@ export const friendsData: FriendItem[] = [
 	},
 	{
 		id: 3,
+		title: "番茄主理人",
+		imgurl: "https://q1.qlogo.cn/g?b=qq&nk=20447289&s=640",
+		desc: "躬身入局，心为主理，行有尺度，自持本心。",
+		siteurl: "https://blog.fqzlr.top/",
+		tags: ["博客", "折腾", "友链"],
+	},
+	{
+		id: 4,
 		title: "Mizuki",
 		imgurl: "https://avatars.githubusercontent.com/u/225602409?v=4&s=640",
 		desc: "Another Fuwari-based blog theme with docs",
@@ -45,7 +53,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Blog", "Theme"],
 	},
 	{
-		id: 4,
+		id: 5,
 		title: "Astro",
 		imgurl: "https://avatars.githubusercontent.com/u/44914786?v=4&s=640",
 		desc: "The web framework for content-driven websites",
@@ -53,7 +61,7 @@ export const friendsData: FriendItem[] = [
 		tags: ["Framework"],
 	},
 	{
-		id: 5,
+		id: 6,
 		title: "Material 3",
 		imgurl: "https://avatars.githubusercontent.com/u/19478152?v=4&s=640",
 		desc: "Material Design 3 — the next generation of Material Design",
