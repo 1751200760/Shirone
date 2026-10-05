@@ -1,9 +1,15 @@
 ---
+import { getEntry, render } from "astro:content";
+import Card from "@components/atoms/display/Card.svelte";
+import Markdown from "@components/content/Markdown.astro";
 import FriendSection from "@components/organisms/FriendSection.svelte";
+import CommentSection from "@components/organisms/comment/CommentSection.astro";
 import I18nKey from "@i18n/i18nKey";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { friendsConfig } from "@/config/friendsConfig";
+import { siteConfig } from "@/config/siteConfig";
 import { resolveI18nText } from "@utils/i18n-utils";
+import { getMarkdownStylesheetAssets } from "@utils/markdown-assets";
 import { getFriendsList } from "../data/friends";
 
 if (!friendsConfig.enable) {
@@ -12,8 +18,42 @@ if (!friendsConfig.enable) {
 
 const pageTitle = resolveI18nText(friendsConfig.title, I18nKey.friends);
 const pageDescription = resolveI18nText(friendsConfig.description, I18nKey.friendsBanner);
+
+const friendsSpec = await getEntry("spec", "friends");
+let Content = null;
+let markdownStylesheetAssets: { pack: string; css: string }[] = [];
+
+if (friendsSpec) {
+	const rendered = await render(friendsSpec);
+	Content = rendered.Content;
+	markdownStylesheetAssets = await getMarkdownStylesheetAssets(
+		rendered.remarkPluginFrontmatter.markdownSyntaxes,
+	);
+}
 ---
 
 <MainGridLayout title={pageTitle} description={pageDescription} page="friends">
-    <FriendSection friends={getFriendsList()} title={pageTitle} subtitle={pageDescription} client:visible></FriendSection>
+    {markdownStylesheetAssets.map(({ pack, css }) => <style is:inline slot="head" data-swup-optional={pack} set:html={css}></style>)}
+    <div class="flex flex-col gap-4 w-full">
+        <FriendSection friends={getFriendsList()} title={pageTitle} subtitle={pageDescription} client:load></FriendSection>
+
+        {Content && (
+            <div class="flex w-full rounded-[var(--shape-corner-l)] overflow-hidden relative">
+                <Card color="var(--card-bg)" radius="l" class="z-10 p-6 lg:p-8 relative w-full">
+                    <Markdown class="mt-2">
+                        <Content />
+                    </Markdown>
+                </Card>
+            </div>
+        )}
+
+        <CommentSection
+            context={{
+                key: "friends",
+                path: "/friends/",
+                title: pageTitle,
+                language: siteConfig.lang,
+            }}
+        />
+    </div>
 </MainGridLayout>
