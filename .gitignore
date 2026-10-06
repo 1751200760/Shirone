@@ -76,3 +76,6 @@ artifacts/shirone-ai-*
 .pnpm-store/
 
 video/
+
+# SEO push temporary list
+urls.txt
