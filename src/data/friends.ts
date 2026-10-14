@@ -69,6 +69,14 @@ export const friendsData: FriendItem[] = [
 		siteurl: "https://m3.material.io",
 		tags: ["Design"],
 	},
+	{
+		id: 7,
+		title: "qwwp",
+		imgurl: "https://qwwp.top/images/avatar.jpg",
+		desc: "你要吃一口C4吗？",
+		siteurl: "https://qwwp.top/",
+		tags: [],
+	},
 ];
 
 export function getFriendsList(): FriendItem[] {
